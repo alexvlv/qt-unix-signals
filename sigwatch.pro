@@ -4,7 +4,9 @@ QT       = core
 TARGET   = sigwatch-demo
 
 SOURCES += example.cpp \
-           sigwatch.cpp
+           sigwatch.cpp \
+		   sigreceiver.cpp
 
-HEADERS += sigwatch.h
+HEADERS += sigwatch.h \
+		   sigreceiver.h
 
