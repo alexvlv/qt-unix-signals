@@ -8,6 +8,7 @@ int main(int argc, char *argv[])
     QCoreApplication app(argc, argv);
     qDebug() << "Hello from process" << QCoreApplication::applicationPid();
 
+#if defined (Q_OS_LINUX)
     UnixSignalWatcher& sigwatch = UnixSignalWatcher::instance();
     //sigwatch.watchForSignal(SIGINT);
     //sigwatch.watchForSignal(SIGTERM);
@@ -21,7 +22,7 @@ int main(int argc, char *argv[])
 	SignalReseiver rx;
 	
     QObject::connect(&sigwatch, SIGNAL(unixSignal(int)), &rx, SLOT(onSignal(int)));
-
+#endif
     int exitcode = app.exec();
     qDebug() << "Goodbye";
     return exitcode;
