@@ -42,15 +42,17 @@ class UnixSignalWatcher : public QObject
 {
     Q_OBJECT
 public:
-    explicit UnixSignalWatcher(QObject *parent = 0);
-    ~UnixSignalWatcher();
-
+    static UnixSignalWatcher &instance() { static UnixSignalWatcher x; return x; }
     void watchForSignal(int signal);
 
 signals:
     void unixSignal(int signal);
 
 private:
+    UnixSignalWatcher(QObject *parent = 0);
+    ~UnixSignalWatcher();
+    UnixSignalWatcher(UnixSignalWatcher const&) = delete;
+    void operator=(UnixSignalWatcher const&)  = delete;
     UnixSignalWatcherPrivate * const d_ptr;
     Q_DECLARE_PRIVATE(UnixSignalWatcher)
     Q_PRIVATE_SLOT(d_func(), void _q_onNotify(int))
